@@ -4,6 +4,10 @@ const path = require('path');
 const { connect,retrieve } = require('./mongodb');
 
 const server = http.createServer(async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   const url = req.url;
 
   if (url === '/') {
@@ -37,6 +41,10 @@ function serveStaticFile(res, url, contentType) {
 
   fileStream.on('error', (error) => {
     res.end('404 Not Found');
+  });
+
+  res.on('close', () => {
+    fileStream.destroy();
   });
 
   res.writeHead(200, {
