@@ -55,7 +55,7 @@ function serveStaticFile(res, url, contentType) {
   fileStream.pipe(res);
 }
 
-const port = 3000;
+const port = 1230;
 
 server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
